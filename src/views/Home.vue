@@ -48,72 +48,36 @@
         </v-simple-table>
       </v-flex>
     </v-layout>
+    <saveModal></saveModal>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import FormBlogCom from '@/components/FormBlogCom.vue';
+import saveModal from '@/components/saveModal.vue';
 import {mapGetters} from 'vuex';
 
   export default {
     components: {
-      FormBlogCom
+      FormBlogCom,
+      saveModal
     },
     data () {
       return {
-        desserts: [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-          },
-        ],
         updateData: false,
         currentPost: {
           userId: 1,
           title: '',
           body: ''
         },
-        newPost: false
+        newPost: false,
       }
     },
     methods: {
+      closModal() {
+        this.modal.val = false
+      },
       seePost(post) {
         this.$router.push({
           name: 'post',
@@ -133,13 +97,16 @@ import {mapGetters} from 'vuex';
         let envio = new Promise((res, rej) => {
             this.$store.dispatch('NEW_POST', this.currentPost);
             this.newPost = false
+            this.$store.dispatch('MODAL', {
+                show: true,
+                msg: 'Mensaje enviado!'
+            })
         })
 
       }
     },
     created() {
       this.$store.commit('GET_POSTS');
-      console.log(this.posts)
     },
     computed: {
       posts() {

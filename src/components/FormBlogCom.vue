@@ -32,7 +32,7 @@
         </v-flex>
         <v-flex offset-xs1 xs10 v-else>
             <div class="text-left">
-            <v-btn @click="enviarPost">Guardar</v-btn>
+            <v-btn @click="savePost">Guardar</v-btn>
             <v-btn @click="cancelPost(post)">Cancelar</v-btn>
             </div>
         </v-flex>
@@ -94,7 +94,7 @@ export default {
                     this.postEditable = false;
             }
         },
-        enviarPost() {
+        savePost() {
             let savePost = {
                     "userId": this.post.userId,
                     "title": this.post.title,
@@ -105,10 +105,19 @@ export default {
                     this.$refs.postTitle.initialValue = null
                     this.$refs.postBody.initialValue = null
                     this.postEditable = false;
+
+                    this.$store.dispatch('MODAL', {
+                        show: true,
+                        msg: 'Mensaje guardado!'
+                    })
                 }
         },
         eliminarPost(index) {
             this.$store.dispatch('DELETE_POST', index)
+                this.$store.dispatch('MODAL', {
+                    show: true,
+                    msg: 'Mensaje eliminado'
+                })
         }
     },
     watch: {
