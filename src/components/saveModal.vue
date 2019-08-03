@@ -2,10 +2,12 @@
   <v-layout justify-center>
     <v-dialog
       :value="showModal"
-      max-width="290"
+      max-width="300"
     >
       <v-card>
-        <v-card-title class="headline">{{msgModal}}</v-card-title>
+        <v-card-title class="headline centrado">
+            {{msgModal}}
+        </v-card-title>
         <v-card-actions>
             <v-btn color="success" @click="closeModal" style="margin-left: auto; margin-right: auto;">Ok</v-btn>
         </v-card-actions>
@@ -47,6 +49,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+.centrado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 </style>

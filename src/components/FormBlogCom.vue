@@ -73,10 +73,10 @@ export default {
         },
         cancelPost(initialPost) {
             
-            if(!this.$refs.postBody.initialValue) {
+            if(this.$refs.postBody.initialValue === null) {
                 this.$refs.postBody.initialValue = initialPost.body
             }
-            if(!this.$refs.postTitle.initialValue)
+            if(this.$refs.postTitle.initialValue === null)
                 this.$refs.postTitle.initialValue = initialPost.title
 
             if(this.postEditable) {
@@ -114,10 +114,10 @@ export default {
         },
         eliminarPost(index) {
             this.$store.dispatch('DELETE_POST', index)
-                this.$store.dispatch('MODAL', {
-                    show: true,
-                    msg: 'Mensaje eliminado'
-                })
+            this.$store.dispatch('MODAL', {
+                show: true,
+                msg: 'Mensaje eliminado'
+            })
         }
     },
     watch: {
